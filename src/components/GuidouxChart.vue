@@ -13,6 +13,7 @@
 <script>
 import Chart from 'chart.js';
 import 'chartjs-plugin-zoom';
+import 'chartjs-plugin-datalabels';
 
 export default {
   components: {
@@ -71,11 +72,6 @@ export default {
             display: true,
             text: 'Chart.js Line Chart',
           },
-          tooltips: {
-            mode: 'index',
-            intersect: false,
-            position: 'nearest',
-          },
           scales: {
             xAxes: [{
               display: true,
@@ -96,7 +92,18 @@ export default {
               },
             }],
           },
+
+          hover: {
+            mode: 'index',
+            intersect: false,
+          },
           plugins: {
+            datalabels: {
+
+              formatter: (value, context) => (context.active
+                ? `x:${value.x.toFixed(5)}\ny:${value.y.toFixed(5)}\n`
+                : ''),
+            },
             zoom: {
               zoom: {
                 enabled: true,
