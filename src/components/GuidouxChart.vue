@@ -1,12 +1,13 @@
 <template>
 <div class="small">
    <canvas id="canvas"></canvas>
-   <button @click="fillData()">Randomize</button>
+   <button @click="resetZoom()">Reset Zoom</button>
 </div>
 </template>
 
 <script>
-const Chart = require('chart.js');
+import Chart from 'chart.js';
+import 'chartjs-plugin-zoom';
 
 export default {
   components: {
@@ -52,6 +53,7 @@ export default {
           }],
         },
         options: {
+          responsive: true,
           animation: {
             duration: 0, // general animation time
           },
@@ -61,7 +63,6 @@ export default {
               radius: 0,
             },
           },
-          responsive: true,
           title: {
             display: true,
             text: 'Chart.js Line Chart',
@@ -75,15 +76,26 @@ export default {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: 'Month',
+                labelString: 'psi[°]',
               },
             }],
             yAxes: [{
               display: true,
               scaleLabel: {
                 display: true,
+                labelString: 'V[kN]',
               },
             }],
+          },
+          plugins: {
+            zoom: {
+              zoom: {
+                enabled: true,
+                drag: true,
+                mode: 'xy',
+                speed: 0.01,
+              },
+            },
           },
         },
       };
@@ -108,6 +120,9 @@ export default {
       }
       this.createChart();
     },
+    resetZoom() {
+      this.myLineChart.resetZoom();
+    },
   },
   data() {
     return {
@@ -126,6 +141,9 @@ export default {
         blue: 'rgb(54, 162, 235)',
         purple: 'rgb(153, 102, 255)',
         grey: 'rgb(231,233,237)',
+      },
+      dragOptions: {
+        animationDuration: 1000,
       },
       vrdc: [
         [
