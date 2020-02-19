@@ -27,28 +27,24 @@ export default {
             backgroundColor: this.chartColors.red,
             borderColor: this.chartColors.red,
             data: this.line1,
-            pointHoverRadius: 10,
             fill: false,
           }, {
             label: '2',
             backgroundColor: this.chartColors.blue,
             borderColor: this.chartColors.blue,
             data: this.line2,
-            pointHoverRadius: 10,
             fill: false,
           }, {
             label: '3',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line3,
-            pointHoverRadius: 10,
             fill: false,
           }, {
             label: '4',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line4,
-            pointHoverRadius: 10,
             fill: false,
           }],
         },
@@ -70,6 +66,7 @@ export default {
           tooltips: {
             mode: 'index',
             intersect: false,
+            position: 'nearest',
           },
           scales: {
             xAxes: [{
