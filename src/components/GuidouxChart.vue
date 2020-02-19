@@ -1,7 +1,12 @@
 <template>
 <div class="small">
    <canvas id="canvas"></canvas>
-   <button @click="resetZoom()">Reset Zoom</button>
+   <button
+   style="position: absolute; top:140px; left:1000px;"
+   v-if="zoomed"
+    @click="resetZoom()">
+    Reset Zoom
+    </button>
 </div>
 </template>
 
@@ -91,6 +96,7 @@ export default {
                 drag: true,
                 mode: 'xy',
                 speed: 0.01,
+                onZoom: () => { this.zoomed = true; },
               },
             },
           },
@@ -118,6 +124,7 @@ export default {
       this.createChart();
     },
     resetZoom() {
+      this.zoomed = false;
       this.myLineChart.resetZoom();
     },
   },
@@ -142,6 +149,7 @@ export default {
       dragOptions: {
         animationDuration: 1000,
       },
+      zoomed: false,
       vrdc: [
         [
           {
