@@ -24,33 +24,36 @@ export default {
   methods: {
     createChart() {
       const config = {
-        type: 'line',
+        type: 'scatter',
         data: {
-          labels: this.MONTHS,
           datasets: [{
             label: '1',
             backgroundColor: this.chartColors.red,
             borderColor: this.chartColors.red,
             data: this.line1,
             fill: false,
+            showLine: true,
           }, {
             label: '2',
             backgroundColor: this.chartColors.blue,
             borderColor: this.chartColors.blue,
             data: this.line2,
             fill: false,
+            showLine: true,
           }, {
             label: '3',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line3,
             fill: false,
+            showLine: true,
           }, {
             label: '4',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line4,
             fill: false,
+            showLine: true,
           }],
         },
         options: {
@@ -76,6 +79,10 @@ export default {
           scales: {
             xAxes: [{
               display: true,
+              ticks: {
+
+                maxTicksLimit: 10,
+              },
               scaleLabel: {
                 display: true,
                 labelString: 'psi[°]',
@@ -108,18 +115,16 @@ export default {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     },
     fillData() {
-      this.MONTHS = [];
       this.line1 = [];
       this.line2 = [];
       this.line3 = [];
       this.line4 = [];
       const { length } = this.vrdc[0];
       for (let i = 0; i < length; i += 1) {
-        this.MONTHS.push(`${this.vrdc[0][i].x}`);
-        this.line1.push(this.vrdc[0][i].y);
-        this.line2.push(this.vrdc[1][i].y);
-        this.line3.push(this.vrdc[2][i].y);
-        this.line4.push(this.vrdc[3][i].y);
+        this.line1.push(this.vrdc[0][i]);
+        this.line2.push(this.vrdc[1][i]);
+        this.line3.push(this.vrdc[2][i]);
+        this.line4.push(this.vrdc[3][i]);
       }
       this.createChart();
     },
@@ -135,7 +140,6 @@ export default {
       line2: [],
       line3: [],
       line4: [],
-      MONTHS: [],
       myLineChart: null,
       chartColors: {
         red: 'rgb(255, 99, 132)',
