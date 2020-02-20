@@ -28,33 +28,34 @@ export default {
         type: 'scatter',
         data: {
           datasets: [{
-            label: '1',
+            label: 'VRd,c,max',
             backgroundColor: this.chartColors.red,
             borderColor: this.chartColors.red,
             data: this.line1,
             fill: false,
             showLine: true,
           }, {
-            label: '2',
+            label: 'VRd,c',
             backgroundColor: this.chartColors.blue,
             borderColor: this.chartColors.blue,
             data: this.line2,
             fill: false,
             showLine: true,
           }, {
-            label: '3',
+            label: 'Vdx',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line3,
             fill: false,
             showLine: true,
           }, {
-            label: '4',
+            label: 'Vdy',
             backgroundColor: this.chartColors.green,
             borderColor: this.chartColors.green,
             data: this.line4,
             fill: false,
             showLine: true,
+            display: 'auto',
           }],
         },
         options: {
@@ -97,18 +98,42 @@ export default {
             mode: 'index',
             intersect: false,
           },
+          tooltips: false,
           plugins: {
             datalabels: {
+              textAlign: 'center',
+              clip: true,
 
+              align(context) {
+                const { datasetIndex } = context;
+                return 45 + 90 * datasetIndex;
+              },
+
+              backgroundColor(context) {
+                return context.active ? context.dataset.backgroundColor : null;
+              },
+              borderColor(context) {
+                return context.active ? context.dataset.backgroundColor : null;
+              },
+              borderRadius(context) {
+                return context.active ? 0 : 0;
+              },
+              borderWidth: 1,
+              color(context) {
+                return context.active ? 'white' : null;
+              },
+              font: {
+                weight: 'bold',
+              },
               formatter: (value, context) => (context.active
-                ? `x:${value.x.toFixed(5)}\ny:${value.y.toFixed(5)}\n`
+                ? `x:${value.x.toFixed(5)}\ny:${value.y.toFixed(5)}`
                 : ''),
             },
             zoom: {
               zoom: {
                 enabled: true,
                 drag: true,
-                mode: 'xy',
+                mode: 'x',
                 speed: 0.01,
                 onZoom: () => { this.zoomed = true; },
               },
